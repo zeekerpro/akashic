@@ -22,7 +22,7 @@ module Akashic
         exit
       end
 
-      model = prompt.select("Select the OpenAI model you want to use:", %w[gpt-3.5-turbo gpt-4], default: "gpt-4")
+      model = prompt.select("Select the OpenAI model you want to use:", %w[gpt-3.5-turbo gpt-4, gpt-4o-mini, gpt-4o], default: "gpt-4o-mini")
 
       url = prompt.ask("Enter the OpenAI API URL:", default: "https://api.openai.com/")
 
@@ -37,6 +37,7 @@ module Akashic
       File.write(CONFIG_FILE, config.to_yaml)
       puts "Configuration saved to #{CONFIG_FILE}"
     end
+
   end
 end
 

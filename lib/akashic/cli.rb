@@ -1,8 +1,7 @@
 require "thor"
-require "akashic/config"
-require "akashic/chat_bot"
-require "akashic/integration"
-require "pastel"
+require_relative "config"
+require_relative "chat_bot"
+require_relative "integration"
 
 module Akashic
  class CLI < Thor
