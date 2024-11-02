@@ -3,24 +3,26 @@ require "yaml"
 require "pastel"
 
 module Akashic
- module ChatBot
-   def self.start_chat
-     pastel = Pastel.new
-     config = YAML.load_file(Akashic::Config::CONFIG_FILE)
-     client = OpenAI::Client.new(api_key: config["openai"]["api_key"])
+  module ChatBot
+    def self.start_chat
+      prompt = TTY::Prompt.new
+      pastel = Pastel.new
+      config = YAML.load_file(Akashic::Config::CONFIG_FILE)
+      client = OpenAI::Client.new(api_key: config["openai"]["api_key"])
 
-     say(pastel.green("Starting Akashic Chatbot. Type 'exit' to quit."))
-     loop do
-       input = ask(pastel.yellow("You: "))
-       break if input.strip.downcase == "exit"
+      prompt.say("Starting Askashic Chatbot. Type 'exit' to quit.")
+      loop do
+        input = prompt.ask(pastel.yellow("You: "))
 
-       response = client.chat(parameters: {
-         model: config["openai"]["model"],
-         messages: [{ role: "user", content: input }]
-       })
+        break if input.strip.downcase == "exit"
 
-       say(pastel.cyan("AI: #{response.dig("choices", 0, "message", "content")}"))
-     end
-   end
- end
+        response = client.chat(parameters: {
+          model: config["openai"]["model"],
+          messages: [{ role: "user", content: input }]
+        })
+
+        prompt.say(pastel.cyan("AI: #{response.dig("choices", 0, "message", "content")}"))
+      end
+    end
+  end
 end
