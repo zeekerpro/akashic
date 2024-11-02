@@ -37,7 +37,6 @@ Gem::Specification.new do |spec|
   spec.add_dependency "colorize"
   spec.add_dependency "tty-prompt"
   spec.add_dependency "highline"
-  spec.add_runtime_dependency "pastel"
   spec.add_dependency "activesupport"
 
   spec.add_development_dependency "rspec"

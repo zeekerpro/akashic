@@ -5,7 +5,6 @@ PATH
       activesupport
       colorize
       highline
-      pastel
       ruby-openai
       thor
       tty-prompt
