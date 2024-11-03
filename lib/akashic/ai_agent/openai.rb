@@ -18,15 +18,17 @@ module Akashic
       def session(message)
         loop do
           if message.present?
+            # 先检查初始消息是否为 exit
+            break if message&.downcase == "exit"
             Akashic.prompt.say "You: #{message}"
-         else
-           message = Akashic.prompt.ask "You: "
-           break if message&.downcase == "exit"
-           next if !message.present? or message.strip.empty?
-         end
-         response = chat(message)
-         message = nil
-       end
+          else
+            message = Akashic.prompt.ask "You: "
+            break if message&.downcase == "exit"
+            next if !message.present? or message.strip.empty?
+          end
+          response = chat(message)
+          message = nil
+        end
       end
 
       def chat(message)

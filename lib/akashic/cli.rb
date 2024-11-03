@@ -11,7 +11,7 @@ module Akashic
    end
 
    desc "start_chat", "Start the AI chatbot"
-   def start_chat(message)
+   def start_chat(message = nil)
       begin
         Akashic.prompt.ok "Welcome to the Akashic! Type your message or 'exit' to quit."
         agent = AiAgent.new
