@@ -4,7 +4,7 @@ module Akashic
      zshrc_path = File.join(Dir.home, ".zshrc")
      hook = <<~HOOK
        command_not_found_handler() {
-         akashic chat "$@"
+         akashic start_chat "$@"
        }
      HOOK
 
