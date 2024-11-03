@@ -18,10 +18,10 @@ module Akashic
         agent.session message
         Akashic.prompt.ok "Thank you for chatting! Have a good day!"
       rescue TTY::Reader::InputInterrupt, Interrupt
-        puts "\nGoodbye! Thanks for using Akashic!"
+        Akashic.prompt.error "\nGoodbye! Thanks for using Akashic!"
         exit(0)
       rescue Interrupt
-        puts "\nGoodbye! Thanks for using Akashic!"
+        Akashic.prompt.error "\nGoodbye! Thanks for using Akashic!"
         exit(0)
       end
    end
