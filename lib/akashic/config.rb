@@ -9,12 +9,7 @@ module Akashic
     class << self
 
       def load
-        if File.exist?(CONFIG_FILE)
-          Akashic.prompt.ok("Configuration loaded => #{@config}")
-        else
-          Akashic.prompt.error("Configuration file not found. Let's set it up now!")
-          Config.setup
-        end
+        Config.setup unless File.exist?(CONFIG_FILE)
         @config = YAML.load_file(CONFIG_FILE)
       end
 
@@ -22,12 +17,12 @@ module Akashic
         Akashic.prompt.ok( "Let's set up your Akashic configuration interactively.")
 
         # Todo: suuprt more AI server, such as gemini, ollama, Anthropic, etc.
-        server = Akashic.prompt.select("Select the AI client to use:", %w[openai], default: "openai")
+        server = Akashic.prompt.select("Select the AI client to use:", %w[openai], default: "openai", cycle: true)
 
         openai = collect_openai_config if server == "openai"
 
         config = {
-          :server => server,
+          :server => server.to_sym,
           :openai => openai
         }
 
@@ -39,13 +34,14 @@ module Akashic
       private
 
       def collect_openai_config
-        api_key = nil
+        access_tokentoken = nil
         2.times do
-          api_key = Akashic.prompt.mask("Enter your OpenAI API key:")
-          break unless api_key.nil? || api_key.strip.empty?
+          heart = Akashic.prompt.decorate(Akashic.prompt.symbols[:heart] + " ", :magenta)
+          access_token = Akashic.prompt.mask("Enter your OpenAI API key:", mask: heart)
+          break unless access_token.nil? || access_token.strip.empty?
         end
 
-        if api_key.nil? || api_key.strip.empty?
+        if access_token.nil? || access_token.strip.empty?
           Akashic.prompt.error("API key is required. Exiting setup.")
           exit
         end
@@ -57,7 +53,7 @@ module Akashic
         extra_headers = Akashic.prompt.ask("Enter any extra headers to include in the request:")
 
         {
-          api_key: api_key,
+          access_token: access_token,
           url_base: url_base,
           log_errors: is_log_errors,
           organization_id: organization_id,

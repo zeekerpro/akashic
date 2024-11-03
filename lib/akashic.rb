@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "active_support"
+require "active_support/core_ext"
 require_relative "akashic/config"
 require_relative "akashic/version"
 require_relative "akashic/cli"
@@ -10,11 +12,11 @@ module Akashic
 
   class << self
     def prompt
-      @prompt = TTY::Prompt.new
+      @prompt ||= TTY::Prompt.new
     end
 
     def config
-      @config = Config.load()
+      @config ||= Config.load()
     end
 
   end
