@@ -12,10 +12,18 @@ module Akashic
 
    desc "start_chat", "Start the AI chatbot"
    def start_chat(message)
-     Akashic.prompt.ok "Welcome to the Akashic! Type your message or 'exit' to quit."
-     agent = AiAgent.new
-     agent.session message
-     Akashic.prompt.ok "Thank you for chatting! Have a good day!"
+      begin
+        Akashic.prompt.ok "Welcome to the Akashic! Type your message or 'exit' to quit."
+        agent = AiAgent.new
+        agent.session message
+        Akashic.prompt.ok "Thank you for chatting! Have a good day!"
+      rescue TTY::Reader::InputInterrupt, Interrupt
+        puts "\nGoodbye! Thanks for using Akashic!"
+        exit(0)
+      rescue Interrupt
+        puts "\nGoodbye! Thanks for using Akashic!"
+        exit(0)
+      end
    end
 
    # Todo
