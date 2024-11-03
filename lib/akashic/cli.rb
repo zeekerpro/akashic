@@ -1,6 +1,5 @@
 require "thor"
 require_relative "config"
-require_relative "chat_bot"
 require_relative "integration"
 
 module Akashic
