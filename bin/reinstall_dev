@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+gem uninstall akashic
+gem cleanup akashic
+gem build akashic.gemspec
+gem install akashic-0.1.0.gem
