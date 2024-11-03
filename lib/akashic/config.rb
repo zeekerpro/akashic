@@ -1,5 +1,4 @@
 require "yaml"
-require "tty-prompt"
 
 module Akashic
 

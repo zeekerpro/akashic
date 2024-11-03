@@ -36,6 +36,8 @@ Gem::Specification.new do |spec|
   spec.add_dependency "thor"
   spec.add_dependency "colorize"
   spec.add_dependency "tty-prompt"
+  spec.add_dependency "tty-markdown"
+  spec.add_dependency 'tty-spinner'
   spec.add_dependency "highline"
   spec.add_dependency "activesupport"
 
