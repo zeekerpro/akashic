@@ -1,5 +1,5 @@
 module Akashic
-  module Integration
+  module ShellIntegration
    def self.setup_shell_hook
      zshrc_path = File.join(Dir.home, ".zshrc")
      hook = <<~HOOK
@@ -9,7 +9,7 @@ module Akashic
      HOOK
 
      File.open(zshrc_path, "a") { |file| file.puts hook }
-     say("Shell integration added to #{zshrc_path}", :green)
+     Akashic.prompt.ok "Shell integration added to #{zshrc_path}"
    end
  end
 end

@@ -23,7 +23,6 @@ module Akashic
             messages: [{ role: "user", content: message }], # Required.
             temperature: 0.7,
             stream: proc do |chunk, _bytesize|
-              # Akashic.prompt.say chunk.dig("choices", 0, "delta", "content")
               content = chunk.dig("choices", 0, "delta", "content")
               print content
             end

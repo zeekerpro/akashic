@@ -1,6 +1,6 @@
 require "thor"
 require_relative "config"
-require_relative "integration"
+require_relative "shell_integration"
 require_relative "ai_agent"
 
 module Akashic
@@ -11,16 +11,20 @@ module Akashic
    end
 
    desc "chat", "Start the AI chatbot"
-   def chat
+   def chat(message = nil)
      Akashic.prompt.ok "Welcome to the Akashic! Type your message or 'exit' to quit."
-
      agent = AiAgent.new
 
      loop do
-       message = Akashic.prompt.ask "You: "
-       next if !message.present? or message.strip.empty?
-       break if message.downcase == "exit"
+       if message.present?
+         Akashic.prompt.say "You: #{message}"
+       else
+         message = Akashic.prompt.ask "You: "
+         next if !message.present? or message.strip.empty?
+         break if message.downcase == "exit"
+       end
        response = agent.chat(message)
+       message = nil
      end
 
      Akashic.prompt.ok "Thank you for chatting! Have a good day!"
@@ -29,7 +33,7 @@ module Akashic
    # Todo
    desc "integration_shell", "Integrate with shell"
    def integration_shell
-     Integration.setup_shell_hook
+     ShellIntegration.setup_shell_hook
    end
  end
 end

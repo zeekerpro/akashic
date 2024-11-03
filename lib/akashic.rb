@@ -4,7 +4,7 @@ require "active_support/core_ext"
 require_relative "akashic/config"
 require_relative "akashic/version"
 require_relative "akashic/cli"
-require_relative "akashic/integration"
+require_relative "akashic/shell_integration"
 require_relative "akashic/ai_agent"
 
 module Akashic
