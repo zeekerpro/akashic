@@ -10,23 +10,11 @@ module Akashic
      Config.setup
    end
 
-   desc "chat", "Start the AI chatbot"
-   def chat(message = nil)
+   desc "start_chat", "Start the AI chatbot"
+   def start_chat(message)
      Akashic.prompt.ok "Welcome to the Akashic! Type your message or 'exit' to quit."
      agent = AiAgent.new
-
-     loop do
-       if message.present?
-         Akashic.prompt.say "You: #{message}"
-       else
-         message = Akashic.prompt.ask "You: "
-         next if !message.present? or message.strip.empty?
-         break if message.downcase == "exit"
-       end
-       response = agent.chat(message)
-       message = nil
-     end
-
+     agent.session message
      Akashic.prompt.ok "Thank you for chatting! Have a good day!"
    end
 

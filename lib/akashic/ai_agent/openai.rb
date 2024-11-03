@@ -15,9 +15,22 @@ module Akashic
         @client = OpenAI::Client.new
       end
 
+      def session(message)
+        loop do
+          if message.present?
+            Akashic.prompt.say "You: #{message}"
+         else
+           message = Akashic.prompt.ask "You: "
+           break if message&.downcase == "exit"
+           next if !message.present? or message.strip.empty?
+         end
+         response = chat(message)
+         message = nil
+       end
+      end
+
       def chat(message)
-        # 修改 spinner 的文本，在开始时就包含 "Akaishic: "
-        spinner = TTY::Spinner.new("Akaishic: [:spinner] Thinking...", format: :dots_8, output: $stdout, clear: true)
+        spinner = TTY::Spinner.new("Akashic: [:spinner] Thinking...", format: :dots_8, output: $stdout, clear: true)
         spinner.auto_spin
 
         content = @client.chat(
@@ -28,8 +41,8 @@ module Akashic
           }
         ).dig("choices", 0, "message", "content")
 
-        # 停止时不添加额外文本，因为 "Akaishic: " 已经在前面了
-        spinner.stop "Akaishic: "
+        spinner.stop
+        print "Akashic: "
 
         formatted_content = TTY::Markdown.parse(content)
         formatted_content.each_char do |char|
@@ -37,6 +50,7 @@ module Akashic
           $stdout.flush
           sleep 0.005
         end
+        puts("\n")
       end
 
     end
