@@ -12,16 +12,16 @@ module Akashic
 
    desc "start_chat [*MESSAGE]", "Start the AI chatbot with an optional initial message"
    def start_chat(*message)
-      begin
-        Akashic.prompt.ok "Welcome to the Akashic! Type your message or 'exit' to quit."
-        agent = AiAgent.new
-        initial_message = message.any? ? message.join(" ") : nil
-        agent.session initial_message
-        Akashic.prompt.ok "Thank you for chatting! Have a good day!"
-      rescue TTY::Reader::InputInterrupt, Interrupt
-        Akashic.prompt.error "\nGoodbye! Thanks for using Akashic!"
-        exit(0)
-      end
+    begin
+      Akashic.prompt.ok "Welcome to the Akashic! Type your message or 'exit' to quit."
+      agent = AiAgent.new
+      initial_message = message.any? ? message.join(" ") : nil
+      agent.session initial_message
+      Akashic.prompt.ok "Thank you for chatting! Have a good day!"
+    rescue TTY::Reader::InputInterrupt, Interrupt
+      Akashic.prompt.error "\nGoodbye! Thanks for using Akashic!"
+      exit(0)
+    end
    end
 
    def self.exit_on_failure?
