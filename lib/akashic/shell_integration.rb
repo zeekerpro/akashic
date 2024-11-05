@@ -7,7 +7,7 @@ module Akashic
 
         shell_type, config_file = shell_info
         hook_content = generate_hook_content(shell_type)
-        
+
         if confirm_integration(shell_type, config_file, hook_content)
           add_hook_to_config(config_file, hook_content)
           Akashic.prompt.ok "Shell integration has been added to #{config_file}"
@@ -28,7 +28,7 @@ module Akashic
                        File.join(Dir.home, '.zshrc')
                      when 'bash'
                        File.join(Dir.home, '.bashrc')
-                     # Add more shells as needed
+                     # Todo: Add more shells as needed
                      else
                        nil
                      end
@@ -61,7 +61,7 @@ module Akashic
         Akashic.prompt.say "Configuration file: #{config_file}"
         Akashic.prompt.say "\nThe following content will be added to your shell configuration:"
         Akashic.prompt.say "\n#{hook_content}"
-        
+
         Akashic.prompt.yes?("Would you like to proceed with the integration?", default: true)
       end
 

@@ -18,7 +18,6 @@ module Akashic
       def session(message)
         loop do
           if message.present?
-            # 先检查初始消息是否为 exit
             break if message&.downcase == "exit"
             Akashic.prompt.say "You: #{message}"
           else
