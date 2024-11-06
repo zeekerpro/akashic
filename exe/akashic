@@ -1,4 +1,3 @@
 #!/usr/bin/env ruby
-require "debug"
 require_relative "../lib/akashic"
 Akashic::CLI.start
