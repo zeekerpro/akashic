@@ -16,6 +16,9 @@ Akashic is an intelligent terminal assistant inspired by the Akashic Records—a
 - **🔄 Elegant Interaction**: Provides beautiful terminal output with Markdown rendering.
 - **⚡ Shell Integration**: Seamlessly integrates with your shell environment (currently supports zsh).
 - **🎨 Graceful Display**: Offers typewriter effects and progress indicators.
+- **📝 Markdown Support**: Full support for Markdown rendering in terminal, including code blocks.
+- **🔄 Streaming Response**: Character-by-character streaming with intelligent buffer management.
+- **⏳ Progress Indication**: Smart spinner display during AI thinking phase.
 
 ## Installation
 
@@ -36,12 +39,34 @@ This command will guide you through the configuration process, including:
 - Configuring API keys and other necessary settings.
 - Automatically creating a configuration file at `~/.akashic.yml`.
 
+### Configuration Options
+
+```yaml
+openai:
+  model: gpt-4o-mini          # OpenAI model to use
+  temperature: 0.7            # Response creativity (0.0-1.0)
+  access_token: your_token    # Your OpenAI API token
+  organization_id: your_org   # Optional: Your OpenAI organization ID
+  url_base: https://api.openai.com/  # API base URL
+  request_timeout: 240        # Request timeout in seconds
+  log_errors: true           # Enable error logging
+
+max_history: 10              # Maximum conversation history entries
+typing_speed: 0.001          # Character display speed in seconds
+```
+
 ## Usage
 
 ### 1. Direct Chat Mode
 ```bash
 akashic start_chat
 ```
+
+During chat:
+- Responses are streamed character by character
+- Code blocks are properly formatted and syntax highlighted
+- A spinner indicates when the AI is thinking
+- Type 'exit' to end the conversation
 
 ### 2. Shell Integration
 
@@ -116,6 +141,3 @@ With shell integration:
 
 ## Todo
 dynamic params for chat function
-
-
-
