@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    akashic (0.1.0)
+    akashic (0.2.0)
       activesupport
       colorize
       highline

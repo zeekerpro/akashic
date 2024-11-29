@@ -169,14 +169,17 @@ module Akashic
         @conversation_history = @conversation_history.last(@config[:max_history]) if @conversation_history.length > @config[:max_history]
       end
 
-      # Get user input
+      # Get user input with support for multiline input
       # @return [String, nil] User input or nil if empty
       def get_user_input
-        message = Akashic.prompt.ask("You: ")
-        return nil if message.nil?
+        message = Akashic.prompt.multiline(
+          "You: ",
+          help: '(Press Command+Enter or Ctrl+D to send)',
+          interrupt: :exit
+        )
+        return nil if message.nil? || message.empty?
         
-        message.strip!
-        message
+        message.join("\n").strip
       end
 
       # Check if user wants to exit
